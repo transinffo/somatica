@@ -42,7 +42,6 @@ if (is_category()) {
 
 
 
-
 <div class="filter">
     <h3>Фильтр</h3>
     <form id="filter-form" method="get" action="">
@@ -67,39 +66,31 @@ if (is_category()) {
 
         <div class="filter_manuf">
             <h6>Производитель</h6>
-<?php
-$term  = get_queried_object();
-
-// Получаем все посты текущей категории + дочерних
-$posts = get_posts([
-    'post_type'      => 'post',
-    'posts_per_page' => -1,
-    'tax_query'      => [[
-        'taxonomy' => 'category',
-        'field'    => 'term_id',
-        'terms'    => $term->term_id,
-        'include_children' => true,
-    ]],
-    'fields' => 'ids', // только ID, быстрее
-]);
-
-if ($posts) {
-    // Берём все метки, привязанные к этим постам
-    $tags = wp_get_object_terms($posts, 'post_tag', ['orderby' => 'name', 'order' => 'ASC']);
-
-    if (!empty($tags) && !is_wp_error($tags)) {
-        foreach ($tags as $tag): ?>
-            <!-- один тег -->
-            <label>
-                <input type="checkbox" name="tag[]" value="<?php echo esc_attr($tag->slug); ?>">
-                <?php echo esc_html($tag->name); ?>
-            </label>
-            <!-- один тег -->
-        <?php endforeach;
-    }
-}
-?>
-
+            <?php
+            $term  = get_queried_object();
+            $posts = get_posts([
+                'post_type'      => 'post',
+                'posts_per_page' => -1,
+                'tax_query'      => [[
+                    'taxonomy' => 'category',
+                    'field'    => 'term_id',
+                    'terms'    => $term->term_id,
+                    'include_children' => true,
+                ]],
+                'fields' => 'ids',
+            ]);
+            if ($posts) {
+                $tags = wp_get_object_terms($posts, 'post_tag', ['orderby' => 'name', 'order' => 'ASC']);
+                if (!empty($tags) && !is_wp_error($tags)) {
+                    foreach ($tags as $tag): ?>
+                        <label>
+                            <input type="checkbox" name="tag[]" value="<?php echo esc_attr($tag->slug); ?>">
+                            <?php echo esc_html($tag->name); ?>
+                        </label>
+                    <?php endforeach;
+                }
+            }
+            ?>
         </div>
 
         <div class="filter_btn">
@@ -113,12 +104,13 @@ if ($posts) {
 document.getElementById('filter-form').addEventListener('submit', function(e){
     e.preventDefault();
     const checkboxes = document.querySelectorAll('input[name="tag[]"]:checked');
-    const slugs = Array.from(checkboxes).map(cb => cb.value).join('/');
-    const base = '<?php echo esc_url(get_term_link($term)); ?>';
-    const url = slugs ? base + '/' + slugs : base;
+    const slugs = Array.from(checkboxes).map(cb => cb.value).join('-');
+    const base = '<?php echo esc_url(untrailingslashit(get_term_link($term))); ?>';
+    const url = slugs ? base + '/' + slugs + '/' : base + '/';
     window.location.href = url;
 });
 </script>
+
 
 
 
@@ -396,7 +388,7 @@ document.getElementById('filter-form').addEventListener('submit', function(e){
                                         <!-- пагинация конец -->
                                     </div>
                                 </div>
-                                <!-- список товаров конец -->
+                                <!-- список товаров -->
 
                         </div>
                     </div>
@@ -540,7 +532,7 @@ document.getElementById('filter-form').addEventListener('submit', function(e){
                                         <!-- пагинация конец -->
                                     </div>
                                 </div>
-                                <!-- список товаров конец -->
+                                <!-- список товаров -->
 
                         </div>
                     </div>
