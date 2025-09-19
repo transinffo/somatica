@@ -622,10 +622,9 @@ add_filter('wp_nav_menu_objects', function($items, $args) {
 
 
 add_action('init', function() {
-    // Разрешаем product-category/.../tag-slugs/
     add_rewrite_rule(
-        '^product-category/([^/]+(?:/[^/]+)*)/([a-z0-9-]+)/?$',
-        'index.php?category=$matches[1]&tag_slugs=$matches[2]',
+        '^product-category/(.+?)/([a-z0-9-]+)/?$',
+        'index.php?category_name=$matches[1]&tag_slugs=$matches[2]',
         'top'
     );
 });
