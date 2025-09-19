@@ -38,7 +38,11 @@ if (is_category()) {
                 <!-- сайдбар с фильтром -->
                 <div class="col-lg-3">
                     <!--сам фильтр -->
-                        <? if($level==2) { ?>
+                        <? //if($level==2) { ?>
+
+
+
+
 <div class="filter">
     <h3>Фильтр</h3>
     <form id="filter-form" method="get" action="">
@@ -63,44 +67,39 @@ if (is_category()) {
 
         <div class="filter_manuf">
             <h6>Производитель</h6>
-            <?php
-            // Получаем все посты текущей категории + дочерние
-            $posts = get_posts([
-                'post_type' => 'post',
-                'posts_per_page' => -1,
-                'tax_query' => [[
-                    'taxonomy' => 'category',
-                    'field' => 'term_id',
-                    'terms' => $term->term_id,
-                    'include_children' => true,
-                ]],
-                'fields' => 'ids',
-            ]);
+<?php
+$term  = get_queried_object();
 
-            if ($posts):
-                $tags = wp_get_object_terms($posts, 'post_tag', ['orderby' => 'name', 'order' => 'ASC']);
-                if ($tags):
-                    // Выбранные метки из URL (если есть)
-                    $selected_tags = [];
-                    $current_slug = get_query_var('product_tag_slug'); // мы добавим rewrite rule
-                    if ($current_slug) {
-                        $selected_tags = explode('-', sanitize_text_field($current_slug));
-                    }
+// Получаем все посты текущей категории + дочерних
+$posts = get_posts([
+    'post_type'      => 'post',
+    'posts_per_page' => -1,
+    'tax_query'      => [[
+        'taxonomy' => 'category',
+        'field'    => 'term_id',
+        'terms'    => $term->term_id,
+        'include_children' => true,
+    ]],
+    'fields' => 'ids', // только ID, быстрее
+]);
 
-                    foreach ($tags as $tag):
-                        $checked = in_array($tag->slug, $selected_tags) ? 'checked' : '';
-                        ?>
-                        <div class="filter_manuf_item">
-                            <label>
-                                <input type="checkbox" name="tag[]" value="<?php echo esc_attr($tag->slug); ?>" <?php echo $checked; ?>>
-                                <?php echo esc_html($tag->name); ?>
-                            </label>
-                        </div>
-                    <?php
-                    endforeach;
-                endif;
-            endif;
-            ?>
+if ($posts) {
+    // Берём все метки, привязанные к этим постам
+    $tags = wp_get_object_terms($posts, 'post_tag', ['orderby' => 'name', 'order' => 'ASC']);
+
+    if (!empty($tags) && !is_wp_error($tags)) {
+        foreach ($tags as $tag): ?>
+            <!-- один тег -->
+            <label>
+                <input type="checkbox" name="tag[]" value="<?php echo esc_attr($tag->slug); ?>">
+                <?php echo esc_html($tag->name); ?>
+            </label>
+            <!-- один тег -->
+        <?php endforeach;
+    }
+}
+?>
+
         </div>
 
         <div class="filter_btn">
@@ -114,14 +113,17 @@ if (is_category()) {
 document.getElementById('filter-form').addEventListener('submit', function(e){
     e.preventDefault();
     const checkboxes = document.querySelectorAll('input[name="tag[]"]:checked');
-    const slugs = Array.from(checkboxes).map(cb => cb.value).join('-');
+    const slugs = Array.from(checkboxes).map(cb => cb.value).join('/');
     const base = '<?php echo esc_url(get_term_link($term)); ?>';
     const url = slugs ? base + '/' + slugs : base;
     window.location.href = url;
 });
 </script>
 
-                        <?}?>
+
+
+
+                        <?//}?>
                     <!--сам фильтр -->
                 </div>
                 <!-- сайдбар с фильтром -->
@@ -132,7 +134,7 @@ document.getElementById('filter-form').addEventListener('submit', function(e){
 
 
 
-                <!-- список категорий 2 уровня без сайдбара-->
+                <!-- текущая категория Оборудование (уровень 1) - выводим список категорий 2 уровня без сайдбара-->
                 <? if($level==1) { ?>
                     <?php
                     $terms = get_terms([
@@ -191,9 +193,9 @@ document.getElementById('filter-form').addEventListener('submit', function(e){
                     }
                     ?>
                 <?}?>
-                <!-- список категорий 2 уровня без сайдбара-->
+                <!-- текущая категория Оборудование - выводим список категорий 2 уровня без сайдбара-->
 
-                <!-- список категорий 3 уровня с сайдбаром-->
+                <!-- текущая категория например Универсальные станки (уровень 2) - выводим дочерние с товаром внизу -->
                 <? if($level==2) { ?>
                     <div class="col-lg-9">
                         <div class="row g-4">
@@ -261,136 +263,289 @@ document.getElementById('filter-form').addEventListener('submit', function(e){
                                     }
                                 }
                             ?>
-<!-- список товаров -->
-<div class="col-lg-12">
-    <div class="row g-4">
-        <?php
-$term = get_queried_object();
-$tag_slugs = get_query_var('product_tag_slug') ? explode('-', get_query_var('product_tag_slug')) : [];
+                                <!-- список товаров -->
+                                <div class="col-lg-12">
+                                    <div class="row g-4">
+                                        <?php
+                                        $term  = get_queried_object();
+                                        $paged = get_query_var('paged') ? intval(get_query_var('paged')) : 1;
 
-// Аргументы WP_Query
-$args = [
-    'post_type'      => 'post',
-    'posts_per_page' => get_option('posts_per_page'),
-    'paged'          => get_query_var('paged') ? intval(get_query_var('paged')) : 1,
-    'tax_query'      => [
-        [
-            'taxonomy'         => 'category',
-            'field'            => 'term_id',
-            'terms'            => $term->term_id,
-            'include_children' => true,
-        ]
-    ],
-];
+                                        // Основной аргумент WP_Query
+                                        $args = [
+                                            'post_type'      => 'post',
+                                            'posts_per_page' => get_option('posts_per_page'),
+                                            'paged'          => $paged,
+                                            'tax_query'      => [
+                                                [
+                                                    'taxonomy' => 'category',
+                                                    'field'    => 'term_id',
+                                                    'terms'    => $term->term_id,
+                                                ]
+                                            ],
+                                        ];
 
-// Если выбраны метки, добавляем в tax_query
-if ($tag_slugs) {
-    $args['tax_query'][] = [
-        'taxonomy' => 'post_tag',
-        'field'    => 'slug',
-        'terms'    => $tag_slugs,
-        'operator' => 'AND', // чтобы учитывались все выбранные метки
-    ];
-}
+                                        // Метазапрос для фильтров ACF
+                                        $meta_query = [];
+                                        if (!empty($_GET['filter_type']) && is_array($_GET['filter_type'])) {
+                                            $vals = array_map('sanitize_text_field', (array)$_GET['filter_type']);
+                                            $sub = ['relation' => 'OR'];
+                                            foreach ($vals as $v) {
+                                                $sub[] = ['key' => 'product_type', 'value' => '"' . $v . '"', 'compare' => 'LIKE'];
+                                                $sub[] = ['key' => 'product_type', 'value' => $v, 'compare' => '='];
+                                            }
+                                            $meta_query[] = $sub;
+                                        }
+                                        if (!empty($_GET['filter_manuf']) && is_array($_GET['filter_manuf'])) {
+                                            $vals = array_map('sanitize_text_field', (array)$_GET['filter_manuf']);
+                                            $sub = ['relation' => 'OR'];
+                                            foreach ($vals as $v) {
+                                                $sub[] = ['key' => 'product_manuf', 'value' => '"' . $v . '"', 'compare' => 'LIKE'];
+                                                $sub[] = ['key' => 'product_manuf', 'value' => $v, 'compare' => '='];
+                                            }
+                                            $meta_query[] = $sub;
+                                        }
+                                        if ($meta_query) $args['meta_query'] = array_merge(['relation' => 'AND'], $meta_query);
 
-$query = new WP_Query($args);
+                                        $query = new WP_Query($args);
+                                        if ($query->have_posts()):
+                                            while ($query->have_posts()): $query->the_post();
+                                        ?>
+                                        <!-- 1 товар -->
+                                        <div class="col-xl-3 col-lg-4 col-md-6 product_cat_item">
+                                            <div class="product_cat_item_wrap">
+                                                <?php if (has_post_thumbnail()): ?>
+                                                <a href="<?php the_permalink(); ?>">
+                                                    <div class="product_cat_item_img" style="background-image: url(<?the_post_thumbnail_url('medium');?>);">
+                                                        <?php if (get_field('product_sale')){?>
+                                                            <div class="product_cat_item_sale">Акция</div>
+                                                        <?}?>
+                                                    </div>
+                                                </a>
+                                                <?php endif; ?>
+                                                <div class="product_cat_item_title">
+                                                    <h3>
+                                                        <a  href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                                                    </h3>
+                                                </div>
+                                                <div class="product_cat_item_overlay">
+                                                    <div class="product_cat_item_stock">
+                                                        <?php if (get_field('product_stock')) { ?>
+                                                            <span>Статус: </span><strong>В НАЛИЧИИ.</strong>
+                                                        <?} else {?>
+                                                            <span>Статус: </span><strong>НЕТ НА СКЛАДЕ.</strong>
+                                                        <?}?>
+                                                    </div>
+                                                    <?php if (get_field('product_short_desc')): ?>
+                                                    <div class="product_cat_item_short">
+                                                        <?php the_field('product_short_desc') ?>                              
+                                                    </div>
+                                                    <?php endif; ?>                                 
 
 
-        if ($query->have_posts()):
-            while ($query->have_posts()): $query->the_post();
-        ?>
-        <!-- 1 товар -->
-        <div class="col-xl-3 col-lg-4 col-md-6 product_cat_item">
-            <div class="product_cat_item_wrap">
-                <?php if (has_post_thumbnail()): ?>
-                <a href="<?php the_permalink(); ?>">
-                    <div class="product_cat_item_img" style="background-image: url(<?php the_post_thumbnail_url('medium'); ?>);">
-                        <?php if (get_field('product_sale')): ?>
-                            <div class="product_cat_item_sale">Акция</div>
-                        <?php endif; ?>
-                    </div>
-                </a>
-                <?php endif; ?>
-                <div class="product_cat_item_title">
-                    <h3>
-                        <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-                    </h3>
-                </div>
-                <div class="product_cat_item_overlay">
-                    <div class="product_cat_item_stock">
-                        <?php if (get_field('product_stock')): ?>
-                            <span>Статус: </span><strong>В НАЛИЧИИ.</strong>
-                        <?php else: ?>
-                            <span>Статус: </span><strong>НЕТ НА СКЛАДЕ.</strong>
-                        <?php endif; ?>
-                    </div>
 
-                    <?php if (get_field('product_short_desc')): ?>
-                    <div class="product_cat_item_short">
-                        <?php the_field('product_short_desc'); ?>                              
-                    </div>
-                    <?php endif; ?>                                 
+                                                    <?php 
+                                                    $value = get_field('product_manuf', get_the_ID()); 
+                                                    $field = get_field_object('product_manuf', get_the_ID()); 
 
-                    <?php 
-                    $value = get_field('product_manuf', get_the_ID()); 
-                    $field = get_field_object('product_manuf', get_the_ID()); 
-
-                    if ($value && isset($field['choices'][$value])): ?>
-                        <div class="product_cat_item_manuf">
-                            <strong>Производитель: </strong> <?php echo esc_html($field['choices'][$value]); ?>
-                        </div>
-                    <?php endif; ?>
-
-                    <div class="product_cat_item_order">
-                        <a href="javascript:void(0)" class="main_form main_btn w-100">
-                            <span>СДЕЛАТЬ ЗАПРОС</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- 1 товар конец -->
-        <?php endwhile; wp_reset_postdata(); else: ?>
-            <p>Нет товаров с такими характеристиками.</p>
-        <?php endif; ?>
-
-        <!-- пагинация -->
-        <div class="col-lg-12 pt-4 text-center">
-            <div class="d-inline-block">
-                <?php
-                $paged = $query->get('paged') ? intval($query->get('paged')) : 1;
-                $max_page = $query->max_num_pages;
-                if ($max_page > 1):
-                ?>
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination">
-                        <li class="page-item">
-                            <a class="page-link" href="<?php echo esc_url(add_query_arg($_GET, get_pagenum_link(max(1, $paged - 1)))); ?>" aria-label="Previous"><span aria-hidden="true"><i class="fa fa-chevron-left"></i></span></a>
-                        </li>
-                        <?php for ($i = 1; $i <= $max_page; $i++): ?>
-                            <li class="page-item<?php echo ($i === $paged) ? ' active' : ''; ?>"<?php echo ($i === $paged) ? ' aria-current="page"' : ''; ?>><a class="page-link" href="<?php echo esc_url(add_query_arg($_GET, get_pagenum_link($i))); ?>"><?php echo $i; ?></a></li>
-                        <?php endfor; ?>
-                        <li class="page-item">
-                            <a class="page-link" href="<?php echo esc_url(add_query_arg($_GET, get_pagenum_link(min($max_page, $paged + 1)))); ?>" aria-label="Next"><span aria-hidden="true"><i class="fa fa-chevron-right"></i></span></a>
-                        </li>
-                    </ul>
-                </nav>
-                <?php endif; ?>
-            </div>
-        </div>
-        <!-- пагинация конец -->
-    </div>
-</div>
-<!-- список товаров конец -->
+                                                    if ($value && isset($field['choices'][$value])): ?>
+                                                        <div class="product_cat_item_manuf">
+                                                            <strong>Производитель: </strong> <?php echo esc_html($field['choices'][$value]); ?>
+                                                         </div>
+                                                    <?php endif; ?>
+                 
+                                                    <!-- <div class="product_cat_item_wish">
+                                                        <span>Добавить в избранное: </span>
+                                                        <img src="/wp-content/themes/ftechno/assets/images/ui/heart.svg" class="" alt="">
+                                                    </div> -->
+                                                    <div class="product_cat_item_order">
+                                                        <a href="javascript:void(0)" class="main_form main_btn w-100">
+                                                            <span>СДЕЛАТЬ ЗАПРОС</span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- 1 товар конец -->
+                                        <?php endwhile; wp_reset_postdata(); else: ?>
+                                            <p>Нет товаров с такими характеристиками.</p>
+                                        <?php endif; ?>
+                                        <!-- пагинация -->
+                                        <div class="col-lg-12 pt-4 text-center">
+                                            <div class="d-inline-block">
+                                                <?php
+                                                $paged = $query->get('paged') ? intval($query->get('paged')) : 1;
+                                                $max_page = $query->max_num_pages;
+                                                if ($max_page > 1):
+                                                ?>
+                                                <nav aria-label="Page navigation example">
+                                                    <ul class="pagination">
+                                                        <li class="page-item">
+                                                            <a class="page-link" href="<?php echo esc_url(add_query_arg($_GET, get_pagenum_link(max(1, $paged - 1)))); ?>" aria-label="Previous"><span aria-hidden="true"><i class="fa fa-chevron-left"></i></span></a>
+                                                        </li>
+                                                        <?php for ($i = 1; $i <= $max_page; $i++): ?>
+                                                            <li class="page-item<?php echo ($i === $paged) ? ' active' : ''; ?>"<?php echo ($i === $paged) ? ' aria-current="page"' : ''; ?>><a class="page-link" href="<?php echo esc_url(add_query_arg($_GET, get_pagenum_link($i))); ?>"><?php echo $i; ?></a></li>
+                                                        <?php endfor; ?>
+                                                        <li class="page-item">
+                                                            <a class="page-link" href="<?php echo esc_url(add_query_arg($_GET, get_pagenum_link(min($max_page, $paged + 1)))); ?>" aria-label="Next"><span aria-hidden="true"><i class="fa fa-chevron-right"></i></span></a>
+                                                        </li>
+                                                    </ul>
+                                                </nav>
+                                                <?php endif; ?>
+                                            </div>
+                                        </div>
+                                        <!-- пагинация конец -->
+                                    </div>
+                                </div>
+                                <!-- список товаров конец -->
 
                         </div>
                     </div>
                 <?}?>
-                <!-- список категорий 3 уровня с сайдбаром-->
+                <!-- текущая категория например Универсальные станки (уровень 2) - выводим дочерние с товаром внизу -->
+
+                <!-- текущая категория например Токарные станки (уровень 3) - выводим просто список товаров -->
+                <? if($level==3) { ?>
+                    <div class="col-lg-9">
+                        <div class="row g-4">
+                                <!-- список товаров -->
+                                <div class="col-lg-12">
+                                    <div class="row g-4">
+                                        <?php
+                                        $term  = get_queried_object();
+                                        $paged = get_query_var('paged') ? intval(get_query_var('paged')) : 1;
+
+                                        // Основной аргумент WP_Query
+                                        $args = [
+                                            'post_type'      => 'post',
+                                            'posts_per_page' => get_option('posts_per_page'),
+                                            'paged'          => $paged,
+                                            'tax_query'      => [
+                                                [
+                                                    'taxonomy' => 'category',
+                                                    'field'    => 'term_id',
+                                                    'terms'    => $term->term_id,
+                                                ]
+                                            ],
+                                        ];
+
+                                        // Метазапрос для фильтров ACF
+                                        $meta_query = [];
+                                        if (!empty($_GET['filter_type']) && is_array($_GET['filter_type'])) {
+                                            $vals = array_map('sanitize_text_field', (array)$_GET['filter_type']);
+                                            $sub = ['relation' => 'OR'];
+                                            foreach ($vals as $v) {
+                                                $sub[] = ['key' => 'product_type', 'value' => '"' . $v . '"', 'compare' => 'LIKE'];
+                                                $sub[] = ['key' => 'product_type', 'value' => $v, 'compare' => '='];
+                                            }
+                                            $meta_query[] = $sub;
+                                        }
+                                        if (!empty($_GET['filter_manuf']) && is_array($_GET['filter_manuf'])) {
+                                            $vals = array_map('sanitize_text_field', (array)$_GET['filter_manuf']);
+                                            $sub = ['relation' => 'OR'];
+                                            foreach ($vals as $v) {
+                                                $sub[] = ['key' => 'product_manuf', 'value' => '"' . $v . '"', 'compare' => 'LIKE'];
+                                                $sub[] = ['key' => 'product_manuf', 'value' => $v, 'compare' => '='];
+                                            }
+                                            $meta_query[] = $sub;
+                                        }
+                                        if ($meta_query) $args['meta_query'] = array_merge(['relation' => 'AND'], $meta_query);
+
+                                        $query = new WP_Query($args);
+                                        if ($query->have_posts()):
+                                            while ($query->have_posts()): $query->the_post();
+                                        ?>
+                                        <!-- 1 товар -->
+                                        <div class="col-xl-3 col-lg-4 col-md-6 product_cat_item">
+                                            <div class="product_cat_item_wrap">
+                                                <?php if (has_post_thumbnail()): ?>
+                                                <a href="<?php the_permalink(); ?>">
+                                                    <div class="product_cat_item_img" style="background-image: url(<?the_post_thumbnail_url('medium');?>);">
+                                                        <?php if (get_field('product_sale')){?>
+                                                            <div class="product_cat_item_sale">Акция</div>
+                                                        <?}?>
+                                                    </div>
+                                                </a>
+                                                <?php endif; ?>
+                                                <div class="product_cat_item_title">
+                                                    <h3>
+                                                        <a  href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                                                    </h3>
+                                                </div>
+                                                <div class="product_cat_item_overlay">
+                                                    <div class="product_cat_item_stock">
+                                                        <?php if (get_field('product_stock')) { ?>
+                                                            <span>Статус: </span><strong>В НАЛИЧИИ.</strong>
+                                                        <?} else {?>
+                                                            <span>Статус: </span><strong>НЕТ НА СКЛАДЕ.</strong>
+                                                        <?}?>
+                                                    </div>
+                                                    <?php if (get_field('product_short_desc')): ?>
+                                                    <div class="product_cat_item_short">
+                                                        <?php the_field('product_short_desc') ?>                              
+                                                    </div>
+                                                    <?php endif; ?>                                 
 
 
 
+                                                    <?php 
+                                                    $value = get_field('product_manuf', get_the_ID()); 
+                                                    $field = get_field_object('product_manuf', get_the_ID()); 
 
+                                                    if ($value && isset($field['choices'][$value])): ?>
+                                                        <div class="product_cat_item_manuf">
+                                                            <strong>Производитель: </strong> <?php echo esc_html($field['choices'][$value]); ?>
+                                                         </div>
+                                                    <?php endif; ?>
+                 
+                                                    <!-- <div class="product_cat_item_wish">
+                                                        <span>Добавить в избранное: </span>
+                                                        <img src="/wp-content/themes/ftechno/assets/images/ui/heart.svg" class="" alt="">
+                                                    </div> -->
+                                                    <div class="product_cat_item_order">
+                                                        <a href="javascript:void(0)" class="main_form main_btn w-100">
+                                                            <span>СДЕЛАТЬ ЗАПРОС</span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- 1 товар конец -->
+                                        <?php endwhile; wp_reset_postdata(); else: ?>
+                                            <p>Нет товаров с такими характеристиками.</p>
+                                        <?php endif; ?>
+                                        <!-- пагинация -->
+                                        <div class="col-lg-12 pt-4 text-center">
+                                            <div class="d-inline-block">
+                                                <?php
+                                                $paged = $query->get('paged') ? intval($query->get('paged')) : 1;
+                                                $max_page = $query->max_num_pages;
+                                                if ($max_page > 1):
+                                                ?>
+                                                <nav aria-label="Page navigation example">
+                                                    <ul class="pagination">
+                                                        <li class="page-item">
+                                                            <a class="page-link" href="<?php echo esc_url(add_query_arg($_GET, get_pagenum_link(max(1, $paged - 1)))); ?>" aria-label="Previous"><span aria-hidden="true"><i class="fa fa-chevron-left"></i></span></a>
+                                                        </li>
+                                                        <?php for ($i = 1; $i <= $max_page; $i++): ?>
+                                                            <li class="page-item<?php echo ($i === $paged) ? ' active' : ''; ?>"<?php echo ($i === $paged) ? ' aria-current="page"' : ''; ?>><a class="page-link" href="<?php echo esc_url(add_query_arg($_GET, get_pagenum_link($i))); ?>"><?php echo $i; ?></a></li>
+                                                        <?php endfor; ?>
+                                                        <li class="page-item">
+                                                            <a class="page-link" href="<?php echo esc_url(add_query_arg($_GET, get_pagenum_link(min($max_page, $paged + 1)))); ?>" aria-label="Next"><span aria-hidden="true"><i class="fa fa-chevron-right"></i></span></a>
+                                                        </li>
+                                                    </ul>
+                                                </nav>
+                                                <?php endif; ?>
+                                            </div>
+                                        </div>
+                                        <!-- пагинация конец -->
+                                    </div>
+                                </div>
+                                <!-- список товаров конец -->
+
+                        </div>
+                    </div>
+                <?}?>               
+                <!-- текущая категория например Токарные станки (уровень 3) - выводим просто список товаров -->
 
 
 
