@@ -622,15 +622,21 @@ add_filter('wp_nav_menu_objects', function($items, $args) {
 
 
 add_action('init', function() {
+    // Категория + тег (вложенность любая)
     add_rewrite_rule(
-        '^product-category/(.+?)/([a-z0-9-]+)/?$',
+        '^product-category/(.+)/([a-z0-9-]+)/?$',
         'index.php?category_name=$matches[1]&tag_slugs=$matches[2]',
         'top'
     );
+    // Только категория (вложенность любая)
+    add_rewrite_rule(
+        '^product-category/(.+)/?$',
+        'index.php?category_name=$matches[1]',
+        'top'
+    );
 });
-
-// Разрешаем новую переменную для запроса
 add_filter('query_vars', function($vars) {
     $vars[] = 'tag_slugs';
     return $vars;
 });
+
