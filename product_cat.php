@@ -258,50 +258,45 @@ document.getElementById('filter-form').addEventListener('submit', function(e){
                                 <!-- список товаров -->
                                 <div class="col-lg-12">
                                     <div class="row g-4">
-                                        <?php
-                                        $term  = get_queried_object();
-                                        $paged = get_query_var('paged') ? intval(get_query_var('paged')) : 1;
+                                            <?php
+$term  = get_queried_object();
+$paged = get_query_var('paged') ? intval(get_query_var('paged')) : 1;
 
-                                        // Основной аргумент WP_Query
-                                        $args = [
-                                            'post_type'      => 'post',
-                                            'posts_per_page' => get_option('posts_per_page'),
-                                            'paged'          => $paged,
-                                            'tax_query'      => [
-                                                [
-                                                    'taxonomy' => 'category',
-                                                    'field'    => 'term_id',
-                                                    'terms'    => $term->term_id,
-                                                ]
-                                            ],
-                                        ];
+// --- Получаем слаги меток из query var ---
+$tag_slugs = [];
+if (get_query_var('tag_slugs')) {
+    $tag_slugs = explode('-', get_query_var('tag_slugs'));
+}
 
-                                        // Метазапрос для фильтров ACF
-                                        $meta_query = [];
-                                        if (!empty($_GET['filter_type']) && is_array($_GET['filter_type'])) {
-                                            $vals = array_map('sanitize_text_field', (array)$_GET['filter_type']);
-                                            $sub = ['relation' => 'OR'];
-                                            foreach ($vals as $v) {
-                                                $sub[] = ['key' => 'product_type', 'value' => '"' . $v . '"', 'compare' => 'LIKE'];
-                                                $sub[] = ['key' => 'product_type', 'value' => $v, 'compare' => '='];
-                                            }
-                                            $meta_query[] = $sub;
-                                        }
-                                        if (!empty($_GET['filter_manuf']) && is_array($_GET['filter_manuf'])) {
-                                            $vals = array_map('sanitize_text_field', (array)$_GET['filter_manuf']);
-                                            $sub = ['relation' => 'OR'];
-                                            foreach ($vals as $v) {
-                                                $sub[] = ['key' => 'product_manuf', 'value' => '"' . $v . '"', 'compare' => 'LIKE'];
-                                                $sub[] = ['key' => 'product_manuf', 'value' => $v, 'compare' => '='];
-                                            }
-                                            $meta_query[] = $sub;
-                                        }
-                                        if ($meta_query) $args['meta_query'] = array_merge(['relation' => 'AND'], $meta_query);
+// --- Формируем tax_query ---
+$tax_query = [
+    [
+        'taxonomy' => 'category',
+        'field'    => 'term_id',
+        'terms'    => $term->term_id,
+        'include_children' => true,
+    ]
+];
+if (!empty($tag_slugs)) {
+    $tax_query[] = [
+        'taxonomy' => 'post_tag',
+        'field'    => 'slug',
+        'terms'    => $tag_slugs,
+        'operator' => 'AND',
+    ];
+}
 
-                                        $query = new WP_Query($args);
-                                        if ($query->have_posts()):
-                                            while ($query->have_posts()): $query->the_post();
-                                        ?>
+$args = [
+    'post_type'      => 'post',
+    'posts_per_page' => get_option('posts_per_page'),
+    'paged'          => $paged,
+    'tax_query'      => $tax_query,
+];
+
+$query = new WP_Query($args);
+if ($query->have_posts()):
+    while ($query->have_posts()): $query->the_post();
+?>
                                         <!-- 1 товар -->
                                         <div class="col-xl-3 col-lg-4 col-md-6 product_cat_item">
                                             <div class="product_cat_item_wrap">
