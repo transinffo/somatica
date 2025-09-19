@@ -175,20 +175,16 @@ if (is_category()) {
 
 
 
-                                                            <?php 
-                                                            $value = get_field('product_manuf', get_the_ID()); 
-                                                            $field = get_field_object('product_manuf', get_the_ID()); 
-
-                                                            if ($value && isset($field['choices'][$value])): ?>
-                                                                <div class="product_cat_item_manuf">
-                                                                    <strong>Производитель: </strong> <?php echo esc_html($field['choices'][$value]); ?>
-                                                                 </div>
-                                                            <?php endif; ?>
-                         
-                                                            <!-- <div class="product_cat_item_wish">
+                                                          
+                                                            <!-- <div class="product_cat_item_manuf">
+                                                                <strong>Производитель: </strong> 
+                                                            </div>
+                                                            <div class="product_cat_item_wish">
                                                                 <span>Добавить в избранное: </span>
                                                                 <img src="/wp-content/themes/ftechno/assets/images/ui/heart.svg" class="" alt="">
                                                             </div> -->
+
+
                                                             <div class="product_cat_item_order">
                                                                 <a href="javascript:void(0)" class="main_form main_btn w-100">
                                                                     <span>СДЕЛАТЬ ЗАПРОС</span>
