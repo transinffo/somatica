@@ -1,0 +1,116 @@
+
+Notice: Function _load_textdomain_just_in_time was called incorrectly. Translation loading for the js_composer domain was triggered too early. This is usually an indicator for some code in the plugin or theme running too early. Translations should be loaded at the init action or later. Please see Debugging in WordPress for more information. (This message was added in version 6.7.0.) in /home/mn393530/dronestore.com.ua/www/wp-includes/functions.php on line 6121
+
+Deprecated: Required parameter $element follows optional parameter $post_data in /home/mn393530/dronestore.com.ua/www/wp-content/plugins/woocommerce-tm-extra-product-options/include/class-tm-extra-product-options.php on line 2051
+
+Deprecated: Required parameter $key follows optional parameter $post_data in /home/mn393530/dronestore.com.ua/www/wp-content/plugins/woocommerce-tm-extra-product-options/include/class-tm-extra-product-options.php on line 2051
+
+Deprecated: Required parameter $attribute follows optional parameter $post_data in /home/mn393530/dronestore.com.ua/www/wp-content/plugins/woocommerce-tm-extra-product-options/include/class-tm-extra-product-options.php on line 2051
+
+Deprecated: Required parameter $per_product_pricing follows optional parameter $post_data in /home/mn393530/dronestore.com.ua/www/wp-content/plugins/woocommerce-tm-extra-product-options/include/class-tm-extra-product-options.php on line 2051
+
+Deprecated: Required parameter $variation_id follows optional parameter $post_data in /home/mn393530/dronestore.com.ua/www/wp-content/plugins/woocommerce-tm-extra-product-options/include/class-tm-extra-product-options.php on line 2051
+
+Deprecated: Required parameter $element follows optional parameter $post_data in /home/mn393530/dronestore.com.ua/www/wp-content/plugins/woocommerce-tm-extra-product-options/include/class-tm-extra-product-options.php on line 2196
+
+Deprecated: Required parameter $key follows optional parameter $post_data in /home/mn393530/dronestore.com.ua/www/wp-content/plugins/woocommerce-tm-extra-product-options/include/class-tm-extra-product-options.php on line 2196
+
+Deprecated: Required parameter $attribute follows optional parameter $post_data in /home/mn393530/dronestore.com.ua/www/wp-content/plugins/woocommerce-tm-extra-product-options/include/class-tm-extra-product-options.php on line 2196
+
+Deprecated: Required parameter $per_product_pricing follows optional parameter $post_data in /home/mn393530/dronestore.com.ua/www/wp-content/plugins/woocommerce-tm-extra-product-options/include/class-tm-extra-product-options.php on line 2196
+
+Deprecated: Required parameter $variation_id follows optional parameter $post_data in /home/mn393530/dronestore.com.ua/www/wp-content/plugins/woocommerce-tm-extra-product-options/include/class-tm-extra-product-options.php on line 2196
+
+Deprecated: Required parameter $o follows optional parameter $options in /home/mn393530/dronestore.com.ua/www/wp-content/plugins/woocommerce-tm-extra-product-options/include/compatibility/classes/class-tm-epo-cp-subscriptions.php on line 528
+
+Deprecated: Required parameter $ar follows optional parameter $options in /home/mn393530/dronestore.com.ua/www/wp-content/plugins/woocommerce-tm-extra-product-options/include/compatibility/classes/class-tm-epo-cp-subscriptions.php on line 528
+
+Deprecated: Required parameter $name follows optional parameter $options in /home/mn393530/dronestore.com.ua/www/wp-content/plugins/woocommerce-tm-extra-product-options/include/compatibility/classes/class-tm-epo-cp-subscriptions.php on line 528
+
+Deprecated: Required parameter $counter follows optional parameter $options in /home/mn393530/dronestore.com.ua/www/wp-content/plugins/woocommerce-tm-extra-product-options/include/compatibility/classes/class-tm-epo-cp-subscriptions.php on line 528
+
+Deprecated: Required parameter $options follows optional parameter $o in /home/mn393530/dronestore.com.ua/www/wp-content/plugins/woocommerce-tm-extra-product-options/include/compatibility/classes/class-tm-epo-cp-subscriptions.php on line 544
+
+Deprecated: Required parameter $ar follows optional parameter $o in /home/mn393530/dronestore.com.ua/www/wp-content/plugins/woocommerce-tm-extra-product-options/include/compatibility/classes/class-tm-epo-cp-subscriptions.php on line 544
+
+Deprecated: Required parameter $name follows optional parameter $o in /home/mn393530/dronestore.com.ua/www/wp-content/plugins/woocommerce-tm-extra-product-options/include/compatibility/classes/class-tm-epo-cp-subscriptions.php on line 544
+
+Deprecated: Required parameter $counter follows optional parameter $o in /home/mn393530/dronestore.com.ua/www/wp-content/plugins/woocommerce-tm-extra-product-options/include/compatibility/classes/class-tm-epo-cp-subscriptions.php on line 544
+
+Deprecated: Required parameter $d_counter follows optional parameter $js_object in /home/mn393530/dronestore.com.ua/www/wp-content/plugins/woocommerce-tm-extra-product-options/include/compatibility/classes/class-tm-epo-cp-subscriptions.php on line 577
+
+Deprecated: Required parameter $o follows optional parameter $js_object in /home/mn393530/dronestore.com.ua/www/wp-content/plugins/woocommerce-tm-extra-product-options/include/compatibility/classes/class-tm-epo-cp-subscriptions.php on line 577
+
+Deprecated: Required parameter $name follows optional parameter $js_object in /home/mn393530/dronestore.com.ua/www/wp-content/plugins/woocommerce-tm-extra-product-options/include/compatibility/classes/class-tm-epo-cp-subscriptions.php on line 577
+
+Deprecated: Required parameter $counter follows optional parameter $js_object in /home/mn393530/dronestore.com.ua/www/wp-content/plugins/woocommerce-tm-extra-product-options/include/compatibility/classes/class-tm-epo-cp-subscriptions.php on line 577
+
+Deprecated: Required parameter $builder follows optional parameter $obvalues in /home/mn393530/dronestore.com.ua/www/wp-content/plugins/woocommerce-tm-extra-product-options/include/compatibility/classes/class-tm-epo-cp-subscriptions.php on line 599
+
+Deprecated: Required parameter $value follows optional parameter $obvalues in /home/mn393530/dronestore.com.ua/www/wp-content/plugins/woocommerce-tm-extra-product-options/include/compatibility/classes/class-tm-epo-cp-subscriptions.php on line 599
+
+Deprecated: Required parameter $current_builder follows optional parameter $obvalues in /home/mn393530/dronestore.com.ua/www/wp-content/plugins/woocommerce-tm-extra-product-options/include/compatibility/classes/class-tm-epo-cp-subscriptions.php on line 599
+
+Deprecated: Required parameter $_titles_base follows optional parameter $obvalues in /home/mn393530/dronestore.com.ua/www/wp-content/plugins/woocommerce-tm-extra-product-options/include/compatibility/classes/class-tm-epo-cp-subscriptions.php on line 599
+
+Deprecated: Required parameter $_option_key follows optional parameter $obvalues in /home/mn393530/dronestore.com.ua/www/wp-content/plugins/woocommerce-tm-extra-product-options/include/compatibility/classes/class-tm-epo-cp-subscriptions.php on line 599
+
+Deprecated: Required parameter $builder follows optional parameter $cbvalues in /home/mn393530/dronestore.com.ua/www/wp-content/plugins/woocommerce-tm-extra-product-options/include/compatibility/classes/class-tm-epo-cp-subscriptions.php on line 639
+
+Deprecated: Required parameter $value follows optional parameter $cbvalues in /home/mn393530/dronestore.com.ua/www/wp-content/plugins/woocommerce-tm-extra-product-options/include/compatibility/classes/class-tm-epo-cp-subscriptions.php on line 639
+
+Deprecated: Required parameter $current_builder follows optional parameter $cbvalues in /home/mn393530/dronestore.com.ua/www/wp-content/plugins/woocommerce-tm-extra-product-options/include/compatibility/classes/class-tm-epo-cp-subscriptions.php on line 639
+
+Deprecated: Required parameter $_titles_base follows optional parameter $cbvalues in /home/mn393530/dronestore.com.ua/www/wp-content/plugins/woocommerce-tm-extra-product-options/include/compatibility/classes/class-tm-epo-cp-subscriptions.php on line 639
+
+Deprecated: Required parameter $_option_key follows optional parameter $cbvalues in /home/mn393530/dronestore.com.ua/www/wp-content/plugins/woocommerce-tm-extra-product-options/include/compatibility/classes/class-tm-epo-cp-subscriptions.php on line 639
+
+Deprecated: Required parameter $field_obj follows optional parameter $cart_item_meta in /home/mn393530/dronestore.com.ua/www/wp-content/plugins/woocommerce-tm-extra-product-options/include/compatibility/classes/class-tm-epo-cp-subscriptions.php on line 781
+
+Deprecated: Required parameter $product_id follows optional parameter $cart_item_meta in /home/mn393530/dronestore.com.ua/www/wp-content/plugins/woocommerce-tm-extra-product-options/include/compatibility/classes/class-tm-epo-cp-subscriptions.php on line 781
+
+Deprecated: Required parameter $per_product_pricing follows optional parameter $cart_item_meta in /home/mn393530/dronestore.com.ua/www/wp-content/plugins/woocommerce-tm-extra-product-options/include/compatibility/classes/class-tm-epo-cp-subscriptions.php on line 781
+
+Deprecated: Required parameter $cpf_product_price follows optional parameter $cart_item_meta in /home/mn393530/dronestore.com.ua/www/wp-content/plugins/woocommerce-tm-extra-product-options/include/compatibility/classes/class-tm-epo-cp-subscriptions.php on line 781
+
+Deprecated: Required parameter $variation_id follows optional parameter $cart_item_meta in /home/mn393530/dronestore.com.ua/www/wp-content/plugins/woocommerce-tm-extra-product-options/include/compatibility/classes/class-tm-epo-cp-subscriptions.php on line 781
+
+Deprecated: Required parameter $post_data follows optional parameter $cart_item_meta in /home/mn393530/dronestore.com.ua/www/wp-content/plugins/woocommerce-tm-extra-product-options/include/compatibility/classes/class-tm-epo-cp-subscriptions.php on line 781
+
+Deprecated: Required parameter $value follows optional parameter $name_inc in /home/mn393530/dronestore.com.ua/www/wp-content/plugins/woocommerce-tm-extra-product-options/include/compatibility/classes/class-tm-epo-cp-subscriptions.php on line 1013
+
+Deprecated: Required parameter $value follows optional parameter $args in /home/mn393530/dronestore.com.ua/www/wp-content/plugins/woocommerce-tm-extra-product-options/include/compatibility/classes/class-tm-epo-cp-subscriptions.php on line 1049
+
+Deprecated: Required parameter $composite_product follows optional parameter $product in /home/mn393530/dronestore.com.ua/www/wp-content/plugins/woocommerce-tm-extra-product-options/include/compatibility/classes/class-tm-epo-cp-composite.php on line 132
+
+Deprecated: Required parameter $product follows optional parameter $price in /home/mn393530/dronestore.com.ua/www/wp-content/plugins/woocommerce-tm-extra-product-options/include/compatibility/classes/class-tm-epo-cp-dpd.php on line 495
+
+Deprecated: Required parameter $product follows optional parameter $field_price in /home/mn393530/dronestore.com.ua/www/wp-content/plugins/woocommerce-tm-extra-product-options/include/compatibility/classes/class-tm-epo-cp-dpd.php on line 918
+
+Deprecated: Required parameter $product follows optional parameter $price in /home/mn393530/dronestore.com.ua/www/wp-content/plugins/woocommerce-tm-extra-product-options/include/compatibility/classes/class-tm-epo-cp-elex-dpd.php on line 183
+
+Deprecated: Required parameter $product follows optional parameter $field_price in /home/mn393530/dronestore.com.ua/www/wp-content/plugins/woocommerce-tm-extra-product-options/include/compatibility/classes/class-tm-epo-cp-elex-dpd.php on line 528
+
+Deprecated: Required parameter $termID follows optional parameter $TermName in /home/mn393530/dronestore.com.ua/www/wp-content/plugins/xml-for-hotline/functions.php on line 154
+
+Deprecated: Required parameter $value_arr follows optional parameter $TermName in /home/mn393530/dronestore.com.ua/www/wp-content/plugins/xml-for-hotline/functions.php on line 154
+
+Notice: Функция _load_textdomain_just_in_time вызвана неправильно. Загрузка перевода для домена woocommerce-tm-extra-product-options была запущена слишком рано. Обычно это индикатор того, что какой-то код в плагине или теме запускается слишком рано. Переводы должны загружаться при выполнении действия init или позже. Дополнительную информацию можно найти на странице «Отладка в WordPress». (Это сообщение было добавлено в версии 6.7.0.) in /home/mn393530/dronestore.com.ua/www/wp-includes/functions.php on line 6121
+
+Notice: Функция _load_textdomain_just_in_time вызвана неправильно. Загрузка перевода для домена woocommerce была запущена слишком рано. Обычно это индикатор того, что какой-то код в плагине или теме запускается слишком рано. Переводы должны загружаться при выполнении действия init или позже. Дополнительную информацию можно найти на странице «Отладка в WordPress». (Это сообщение было добавлено в версии 6.7.0.) in /home/mn393530/dronestore.com.ua/www/wp-includes/functions.php on line 6121
+
+Deprecated: Required parameter $form_prefix follows optional parameter $local_price_array in /home/mn393530/dronestore.com.ua/www/wp-content/plugins/woocommerce-tm-extra-product-options/include/classes/class-tm-epo-display.php on line 1610
+
+Deprecated: Required parameter $dummy_prefix follows optional parameter $local_price_array in /home/mn393530/dronestore.com.ua/www/wp-content/plugins/woocommerce-tm-extra-product-options/include/classes/class-tm-epo-display.php on line 1610
+
+Deprecated: Required parameter $products follows optional parameter $message in /home/mn393530/dronestore.com.ua/www/wp-content/plugins/woocommerce-tm-extra-product-options/include/classes/class-tm-epo-cart.php on line 2830
+
+Deprecated: Required parameter $cart_item_data follows optional parameter $quantity in /home/mn393530/dronestore.com.ua/www/wp-content/plugins/woocommerce-tm-extra-product-options/include/classes/class-tm-epo-associated-products.php on line 1078
+
+Notice: Функция _load_textdomain_just_in_time вызвана неправильно. Загрузка перевода для домена woocommerce-tm-extra-product-options была запущена слишком рано. Обычно это индикатор того, что какой-то код в плагине или теме запускается слишком рано. Переводы должны загружаться при выполнении действия init или позже. Дополнительную информацию можно найти на странице «Отладка в WordPress». (Это сообщение было добавлено в версии 6.7.0.) in /home/mn393530/dronestore.com.ua/www/wp-includes/functions.php on line 6121
+
+Notice: Функция _load_textdomain_just_in_time вызвана неправильно. Загрузка перевода для домена acf была запущена слишком рано. Обычно это индикатор того, что какой-то код в плагине или теме запускается слишком рано. Переводы должны загружаться при выполнении действия init или позже. Дополнительную информацию можно найти на странице «Отладка в WordPress». (Это сообщение было добавлено в версии 6.7.0.) in /home/mn393530/dronestore.com.ua/www/wp-includes/functions.php on line 6121
+
+Notice: Функция _load_textdomain_just_in_time вызвана неправильно. Загрузка перевода для домена legenda была запущена слишком рано. Обычно это индикатор того, что какой-то код в плагине или теме запускается слишком рано. Переводы должны загружаться при выполнении действия init или позже. Дополнительную информацию можно найти на странице «Отладка в WordPress». (Это сообщение было добавлено в версии 6.7.0.) in /home/mn393530/dronestore.com.ua/www/wp-includes/functions.php on line 6121
+
+Fatal error: Declaration of Et_Navigation_Mobile::walk($elements, $max_depth) must be compatible with Walker::walk($elements, $max_depth, ...$args) in /home/mn393530/dronestore.com.ua/www/wp-content/themes/legenda/framework/walkers.php on line 365
