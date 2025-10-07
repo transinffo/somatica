@@ -1,371 +1,516 @@
-<?php 
-// **********************************************************************// 
-// ! Custom navigation
-// **********************************************************************// 
+<div class="analizy-i-ceny">
+	<div class="container">
+		<div class="breadcrumbs">
+			<?php
+			if ( function_exists('yoast_breadcrumb') ) {
+				yoast_breadcrumb('<div id="breadcrumbs" style="margin-left: 0px;">','</div>');
+			}
+			?>
+		</div>
+		<div class="title_h1">
+			<h1><?php single_term_title();  ?></h1>
+		</div>
 
-add_action( 'wp_ajax_menu_posts', array( new Et_Navigation(), 'getPostsByCategory') );
-add_action( 'wp_ajax_nopriv_menu_posts', array( new Et_Navigation(), 'getPostsByCategory') );
+		<div class="pretext">
+			<? if ( is_category() )  echo term_description(); ?>
+		</div>
 
-class Et_Navigation extends Walker_Nav_Menu {
-    public $styles = '';
 
-    function start_lvl( &$output, $depth = 0, $args = array() ) {
-        $indent = str_repeat("\t", $depth);
+		<div class="tabs">
+			<!-- главные табы --> 
+			<ul class="tab-nav">
+				<li class="active" data-tab="tab1">АНАЛИЗЫ</li>
+				<li data-tab="tab2">ПАНЕЛИ</li>
+				<li data-tab="tab3">КОМПЛЕКСЫ</li>
+			</ul>
+			<!-- главные табы -->
 
-        if($depth > 0) {
-            $output .= "\n$indent<div class=\"nav-sublist\">\n";
-        }
+			<div class="tab-content">
+				<!-- таб для АНАЛИЗЫ -->
+				<div id="tab1" class="tab-item active">
+					<div class="table_wrap">
+						<div class="form_search">
+							<label class="text_serch">
+								<input type="text" class="search_input" placeholder="Шукати...">
+							</label>
+						</div>
+						<ul class="list_price">
+							<li class="code">Код</li>
+							<li class="test_name">Назва послуги</li>
+							<li class="termin">Термін</li>
+							<li class="sale">Знижка</li>
+							<li class="cena">Ціна</li>
+							<li class="cart"></li>
+						</ul>
+						<div class="wrapper-boxes">
+							<div  class="header-li"><span>АНАЛИЗЫ 1</span>
+								<div class="header-li-content">
+									<ul class="elastic">
+										<li class="code elastic_item">
+											<p>1091</p>
+										</li>
+										<li class="test_name elastic_item">
+											<a href="/">яблоко в анализах Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet facere illo, veniam perspiciatis voluptate ab minima ex maxime at placeat vitae laboriosam dignissimos sequi temporibus alias excepturi. Delectus, omnis! Possimus.</a>
+										</li>
+										<li class="termin elastic_item">
+											<p>1 р.д.</p>
+										</li>
+										<li class="sale elastic_item">
+											<p>10%</p>
+										</li>										
+										<li class="cena elastic_item">
+											<div class="full_price"><del>200,00 ₴</del></div>
+											<div class="sale_price"><b>150,00 ₴</b></div>
+										</li>
+										<li class="cart elastic_item">
+											<font class="mob_code">Код: 1091</font>
+											<a href="#">
+												<img src="/wp-content/themes/qlab/assets/images/cart.svg" alt="">
+												<font>У кошик</font>
+											</a>
+										</li>
+									</ul>
+									<ul class="elastic">
+										<li class="code elastic_item">
+											<p>1091</p>
+										</li>
+										<li class="test_name elastic_item">
+											<a href="/">груша Lorem ipsum dolor</a>
+										</li>
+										<li class="termin elastic_item">
+											<p>1 р.д.</p>
+										</li>
+										<li class="sale elastic_item">
+											<p>10%</p>
+										</li>										
+										<li class="cena elastic_item">
+											<div class="full_price"><del>200,00 ₴</del></div>
+											<div class="sale_price"><b>150,00 ₴</b></div>
+										</li>
+										<li class="cart elastic_item">
+											<font class="mob_code">Код: 1091</font>
+											<a href="#">
+												<img src="/wp-content/themes/qlab/assets/images/cart.svg" alt="">
+												<font>У кошик</font>
+											</a>
+										</li>
+									</ul>																				
+								</div>
+							</div>
+							<div  class="header-li"><span>АНАЛИЗЫ 11</span>
+								<div class="header-li-content">
+									<ul class="elastic">
+										<li class="code elastic_item">
+											<p>1091</p>
+										</li>
+										<li class="test_name elastic_item">
+											<a href="/">персик Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet facere illo, veniam perspiciatis voluptate ab minima ex maxime at placeat vitae laboriosam dignissimos sequi temporibus alias excepturi. Delectus, omnis! Possimus яблоко в анализах .</a>
+										</li>
+										<li class="termin elastic_item">
+											<p>1 р.д.</p>
+										</li>
+										<li class="sale elastic_item">
+											<p>10%</p>
+										</li>										
+										<li class="cena elastic_item">
+											<div class="full_price"><del>200,00 ₴</del></div>
+											<div class="sale_price"><b>150,00 ₴</b></div>
+										</li>
+										<li class="cart elastic_item">
+											<font class="mob_code">Код: 1091</font>
+											<a href="#">
+												<img src="/wp-content/themes/qlab/assets/images/cart.svg" alt="">
+												<font>У кошик</font>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>    	
+				</div>
+				<!-- таб для АНАЛИЗЫ -->
 
-        $output .= "\n$indent<ul>\n";
+				<!-- таб для ПАНЕЛИ -->
+				<div id="tab2" class="tab-item">
+					<div class="table_wrap">
+						<div class="form_search">
+							<label class="text_serch">
+								<input type="text" class="search_input" placeholder="Шукати...">
+							</label>
+						</div>
+						<ul class="list_price">
+							<li class="code">Код</li>
+							<li class="test_name">Назва послуги</li>
+							<li class="termin">Термін</li>
+							<li class="sale">Знижка</li>
+							<li class="cena">Ціна</li>
+							<li class="cart"></li>
+						</ul>
+						<div class="wrapper-boxes">
+							<div  class="header-li"><span>ПАНЕЛИ 1</span>
+								<div class="header-li-content">
+									<ul class="elastic">
+										<li class="code elastic_item">
+											<p>1091</p>
+										</li>
+										<li class="test_name elastic_item">
+											<a href="/">малина Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet facere illo, veniam perspiciatis voluptate ab minima ex maxime at placeat vitae laboriosam dignissimos sequi temporibus alias excepturi. Delectus, omnis! Possimus.</a>
+										</li>
+										<li class="termin elastic_item">
+											<p>1 р.д.</p>
+										</li>
+										<li class="sale elastic_item">
+											<p>10%</p>
+										</li>										
+										<li class="cena elastic_item">
+											<div class="full_price"><del>200,00 ₴</del></div>
+											<div class="sale_price"><b>150,00 ₴</b></div>
+										</li>
+										<li class="cart elastic_item">
+											<font class="mob_code">Код: 1091</font>
+											<a href="#">
+												<img src="/wp-content/themes/qlab/assets/images/cart.svg" alt="">
+												<font>У кошик</font>
+											</a>
+										</li>
+									</ul>
+									<ul class="elastic">
+										<li class="code elastic_item">
+											<p>1091</p>
+										</li>
+										<li class="test_name elastic_item">
+											<a href="/">ежевика Lorem ipsum dolor</a>
+										</li>
+										<li class="termin elastic_item">
+											<p>1 р.д.</p>
+										</li>
+										<li class="sale elastic_item">
+											<p>10%</p>
+										</li>										
+										<li class="cena elastic_item">
+											<div class="full_price"><del>200,00 ₴</del></div>
+											<div class="sale_price"><b>150,00 ₴</b></div>
+										</li>
+										<li class="cart elastic_item">
+											<font class="mob_code">Код: 1091</font>
+											<a href="#">
+												<img src="/wp-content/themes/qlab/assets/images/cart.svg" alt="">
+												<font>У кошик</font>
+											</a>
+										</li>
+									</ul>																				
+								</div>
+							</div>
+							<div  class="header-li"><span>ПАНЕЛИ 11</span>
+								<div class="header-li-content">
+									<ul class="elastic">
+										<li class="code elastic_item">
+											<p>1091</p>
+										</li>
+										<li class="test_name elastic_item">
+											<a href="/">черника Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet facere illo, veniam perspiciatis voluptate ab minima ex maxime at placeat vitae laboriosam dignissimos sequi temporibus alias excepturi. Delectus, omnis! Possimus.</a>
+										</li>
+										<li class="termin elastic_item">
+											<p>1 р.д.</p>
+										</li>
+										<li class="sale elastic_item">
+											<p>10%</p>
+										</li>										
+										<li class="cena elastic_item">
+											<div class="full_price"><del>200,00 ₴</del></div>
+											<div class="sale_price"><b>150,00 ₴</b></div>
+										</li>
+										<li class="cart elastic_item">
+											<font class="mob_code">Код: 1091</font>
+											<a href="#">
+												<img src="/wp-content/themes/qlab/assets/images/cart.svg" alt="">
+												<font>У кошик</font>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>    	
+				</div>
+				<!-- таб для ПАНЕЛИ -->
+
+				<!-- таб для КОМПЛЕКСЫ -->
+				<div id="tab3" class="tab-item">
+					<div class="table_wrap">
+						<div class="form_search">
+							<label class="text_serch">
+								<input type="text" class="search_input" placeholder="Шукати...">
+							</label>
+						</div>
+						<ul class="list_price">
+							<li class="code">Код</li>
+							<li class="test_name">Назва послуги</li>
+							<li class="termin">Термін</li>
+							<li class="sale">Знижка</li>
+							<li class="cena">Ціна</li>
+							<li class="cart"></li>
+						</ul>
+						<div class="wrapper-boxes">
+							<div  class="header-li"><span>КОМПЛЕКСЫ 1</span>
+								<div class="header-li-content">
+									<ul class="elastic">
+										<li class="code elastic_item">
+											<p>1091</p>
+										</li>
+										<li class="test_name elastic_item">
+											<a href="/">арбуз Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet facere illo, veniam perspiciatis voluptate ab minima ex maxime at placeat vitae laboriosam dignissimos sequi temporibus alias excepturi. Delectus, omnis! Possimus яблоко в комплексах.</a>
+										</li>
+										<li class="termin elastic_item">
+											<p>1 р.д.</p>
+										</li>
+										<li class="sale elastic_item">
+											<p>10%</p>
+										</li>										
+										<li class="cena elastic_item">
+											<div class="full_price"><del>200,00 ₴</del></div>
+											<div class="sale_price"><b>150,00 ₴</b></div>
+										</li>
+										<li class="cart elastic_item">
+											<font class="mob_code">Код: 1091</font>
+											<a href="#">
+												<img src="/wp-content/themes/qlab/assets/images/cart.svg" alt="">
+												<font>У кошик</font>
+											</a>
+										</li>
+									</ul>
+									<ul class="elastic">
+										<li class="code elastic_item">
+											<p>1091</p>
+										</li>
+										<li class="test_name elastic_item">
+											<a href="/">дыня Lorem ipsum dolor</a>
+										</li>
+										<li class="termin elastic_item">
+											<p>1 р.д.</p>
+										</li>
+										<li class="sale elastic_item">
+											<p>10%</p>
+										</li>										
+										<li class="cena elastic_item">
+											<div class="full_price"><del>200,00 ₴</del></div>
+											<div class="sale_price"><b>150,00 ₴</b></div>
+										</li>
+										<li class="cart elastic_item">
+											<font class="mob_code">Код: 1091</font>
+											<a href="#">
+												<img src="/wp-content/themes/qlab/assets/images/cart.svg" alt="">
+												<font>У кошик</font>
+											</a>
+										</li>
+									</ul>																				
+								</div>
+							</div>
+							<div  class="header-li"><span>КОМПЛЕКСЫ 11</span>
+								<div class="header-li-content">
+									<ul class="elastic">
+										<li class="code elastic_item">
+											<p>1091</p>
+										</li>
+										<li class="test_name elastic_item">
+											<a href="/">манго Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet facere illo, veniam perspiciatis voluptate ab minima ex maxime at placeat vitae laboriosam dignissimos sequi temporibus alias excepturi. Delectus, omnis! Possimus.</a>
+										</li>
+										<li class="termin elastic_item">
+											<p>1 р.д.</p>
+										</li>
+										<li class="sale elastic_item">
+											<p>10%</p>
+										</li>										
+										<li class="cena elastic_item">
+											<div class="full_price"><del>200,00 ₴</del></div>
+											<div class="sale_price"><b>150,00 ₴</b></div>
+										</li>
+										<li class="cart elastic_item">
+											<font class="mob_code">Код: 1091</font>
+											<a href="#">
+												<img src="/wp-content/themes/qlab/assets/images/cart.svg" alt="">
+												<font>У кошик</font>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>    	
+				</div>
+				<!-- таб для КОМПЛЕКСЫ -->
+
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+
+
+<script>
+//обработка главных табов
+$(document).ready(function() {
+	$('.tab-nav li').on('click', function() {
+		const tabId = $(this).data('tab');
+
+    // Активируем нужную вкладку
+    $('.tab-nav li').removeClass('active');
+    $(this).addClass('active');
+
+    // Плавно скрываем все табы
+    $('.tab-item.active').fadeOut(200, function() {
+    	$(this).removeClass('active');
+
+      // Показываем нужный таб
+      $('#' + tabId).fadeIn(200).addClass('active');
+  });
+});
+});
+
+
+//обработка внутренних спойлеров анализов
+document.addEventListener("DOMContentLoaded", function () {
+	// Универсальный обработчик: если клик НЕ внутри .header-li-content -> toggle .header-li
+	document.addEventListener('click', function (e) {
+		// Если клик был внутри контента спойлера — выходим, не трогаем active
+		if (e.target.closest('.header-li-content')) {
+			return;
+		}
+
+		// Иначе, если клик был по .header-li (заголовок или его дети вне .header-li-content) — переключаем
+		const header = e.target.closest('.header-li');
+		if (header) {
+			header.classList.toggle('active');
+		}
+	});
+});
+
+
+//поиск через инпут и по алфавиту
+$(document).ready(function() {
+    var lang = $('html').attr('lang');
+    var alphabet = [];
+    var ukAlphabet = [
+        'А','Б','В','Г','Ґ','Д','Е','Є','Ж','З','И','І','Ї','Й','К','Л','М','Н','О','П','Р','С','Т','У','Ф','Х','Ц','Ч','Ш','Щ','Ь','Ю','Я'
+    ];
+    var ruAlphabet = [
+        'А','Б','В','Г','Д','Е','Ё','Ж','З','И','Й','К','Л','М','Н','О','П','Р','С','Т','У','Ф','Х','Ц','Ч','Ш','Щ','Ъ','Ы','Ь','Э','Ю','Я'
+    ];
+    if(lang === 'uk') alphabet = ukAlphabet;
+    else if(lang === 'ru_RU' || lang === 'ru') alphabet = ruAlphabet;
+    else alphabet = ukAlphabet;
+
+    // Генерация алфавита с классами "black" для каждой .table_wrap
+    function getAlphabetBar($tableWrap) {
+        var usedLetters = {};
+        // ВАЖНО: всегда искать по оригинальной разметке!
+        var originalHtml = $tableWrap.find('.wrapper-boxes').data('original');
+        var $originalWrapper = originalHtml ? $(originalHtml) : $tableWrap.find('.wrapper-boxes');
+        $originalWrapper.find('.test_name.elastic_item').each(function() {
+            var txt = $(this).text().trim().toUpperCase();
+            var first = txt.charAt(0);
+            usedLetters[first] = true;
+        });
+        var $alphaDiv = $('<div class="alphabet-bar"></div>');
+        $.each(alphabet, function(_, letter) {
+            var className = 'alphabet-letter';
+            if (usedLetters[letter]) className += ' black';
+            $alphaDiv.append('<span class="'+className+'" data-letter="'+letter+'">'+letter+'</span>');
+        });
+        return $alphaDiv;
     }
 
-    function end_lvl( &$output, $depth = 1, $args = array() ) {
-        $indent = str_repeat("\t", $depth);
-        $output .= "$indent</ul>\n";        
+    // Вставка алфавита после каждой .form_search
+    $('.form_search').each(function() {
+        var $tableWrap = $(this).closest('.table_wrap');
+        // Сохраняем оригинал при инициализации
+        var $wrapper = $tableWrap.find('.wrapper-boxes');
+        if (!$wrapper.data('original')) $wrapper.data('original', $wrapper.html());
+        $(this).after(getAlphabetBar($tableWrap));
+    });
 
-        if($depth > 0) {
-            $output .= "\n$indent</div>\n";
+    // Общая функция поиска
+    function performSearch($tableWrap, searchQuery, searchType) {
+        var $wrapper = $tableWrap.find('.wrapper-boxes');
+        // ВСЕГДА работаем с оригиналом!
+        var originalHtml = $wrapper.data('original');
+        if (!originalHtml) {
+            $wrapper.data('original', $wrapper.html());
+            originalHtml = $wrapper.html();
         }
-    }
+        var $originalWrapper = $(originalHtml);
 
-    function start_el ( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
-        global $wp_query;
-        $indent = ( $depth ) ? str_repeat( "\t", $depth ) : '';
-
-        $item_id =  $item->ID;
-
-        $class_names = $value = '';
-
-        $anchor = get_post_meta($item_id, '_menu-item-anchor', true);
-        
-        if(!empty($anchor)) {
-            $item->url = $item->url.'#'.$anchor;
-            if(($key = array_search('current_page_item', $item->classes)) !== false) {
-                unset($item->classes[$key]);
-            }
-            if(($key = array_search('current-menu-item', $item->classes)) !== false) {
-                unset($item->classes[$key]);
-            }
+        // Возврат к оригиналу при сбросе поиска
+        if ((searchType === 'input' && searchQuery.length < 3) || (searchType === 'reset')) {
+            $wrapper.html(originalHtml);
+            // Обновить алфавит
+            $tableWrap.find('.alphabet-bar').replaceWith(getAlphabetBar($tableWrap));
+            return;
         }
-        
-        $classes = empty( $item->classes ) ? array() : (array) $item->classes;
-        $classes[] = 'menu-item-' . $item->ID;
-        $classes[] = 'item-level-' . $depth;
 
-        $design = $design2 = $columns = $icon = $label = '';
-        $design = get_post_meta($item_id, '_menu-item-design', true);
-        $design2 = get_post_meta($item_id, '_menu-item-design2', true);
-        $columns = get_post_meta($item_id, '_menu-item-columns', true);
-        $icon = get_post_meta($item_id, '_menu-item-icon', true);
-        $label = get_post_meta($item_id, '_menu-item-label', true);
-        $disable_titles = get_post_meta($item_id, '_menu-item-disable_titles', true);
-        $widget_area = get_post_meta($item_id, '_menu-item-widget_area', true);
-        $block = get_post_meta($item_id, '_menu-item-block', true);
-
-        $widgets_content = $block_html = '';
-
-        if( $depth == 0) {
-            if($design != '') {
-                $classes[] = 'menu-'.$design;
-            } else {
-                $classes[] = 'menu-dropdown';
+        var results = [];
+        $originalWrapper.find('.test_name.elastic_item').each(function() {
+            var $item = $(this);
+            var text = $item.text().trim();
+            if (
+                (searchType === 'input' && text.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1)
+                ||
+                (searchType === 'alpha' && text.toUpperCase().startsWith(searchQuery.toUpperCase()))
+            ) {
+                results.push($item.closest('ul.elastic').clone());
             }
-            if($columns != '') $classes[] = 'columns-'.$columns;
+        });
+
+        var $newWrapper = $('<div class="header-li"><div class="header-li-content search_results"></div></div>');
+        var $content = $newWrapper.find('.header-li-content');
+        if (results.length) {
+            results.forEach(function($ul) { $content.append($ul); });
         } else {
-            if($design2 != '') $classes[] = 'item-design2-'.$design2;
-            if($widget_area != '') {
-                $classes[] = 'item-with-widgets';
-                ob_start();
-                dynamic_sidebar( $widget_area );
-                $widgets = ob_get_contents();
-                ob_end_clean();
-                $widgets_content = '<div class="menu-widgets">' . $widgets . '</div>';
-            }
-            if(!empty($block)) {
-                $classes[] = 'item-with-block';
-                ob_start();
-                et_show_block($block);
-                $block_html = ob_get_contents();
-                ob_end_clean();
-                $block_html = '<div class="menu-block">' . $block_html . '</div>';
-            }
+            var notFoundText = (lang === 'ru' || lang === 'ru_RU') ? 'Ничего не найдено' : 'Нічого не знайдено';
+            $content.html('<p>' + notFoundText + '</p>');
         }
-
-        if( $depth < 2) {
-            if($disable_titles == 1) $classes[]= 'menu-disable_titles';
-        }
-
-        if($icon != '') $icon = '<i class="fa fa-'.$icon.'"></i>';
-        if($label != '') $classes[]= 'badge-'.$label;
-        
-        $class_names = join( ' ', apply_filters( 'nav_menu_css_class', array_filter( $classes ), $item, $args ) );
-        $class_names = ' class="' . esc_attr( $class_names ) . '"';
-
-        $id = apply_filters( 'nav_menu_item_id', 'menu-item-'. $item->ID, $item, $args );
-        $id = strlen( $id ) ? ' id="' . esc_attr( $id ) . '"' : '';
-
-        $output .= $indent . '<li' . $id . $value . $class_names .'>';
-        
-        $attributes  = ! empty( $item->attr_title ) ? ' title="'  . esc_attr( $item->attr_title ) .'"' : '';
-        $attributes .= ! empty( $item->target )     ? ' target="' . esc_attr( $item->target     ) .'"' : '';
-        $attributes .= ! empty( $item->xfn )        ? ' rel="'    . esc_attr( $item->xfn        ) .'"' : '';
-        $attributes .= ! empty( $item->url )        ? ' href="'   . esc_attr( $item->url        ) .'"' : '';
-        $attributes .=  ' class="item-link"';
-        $description = '';
-        if($item->description != '') {
-        	$description = '<span class="menu-item-descr">'. do_shortcode($item->description) . '</span>';
-        }
-        $tooltip = '';
-
-        if ( has_post_thumbnail( $item_id ) && $depth > 0 ) { 
-            $tooltip = $this->et_get_tooltip_html($item_id);
-        }
-
-        $this->et_enque_styles($item_id, $depth);
-
-        $item_output = $args->before;
-        $item_output .= '<a'. $attributes .'>';
-        $item_output .= $icon;
-        $item_output .= $args->link_before . apply_filters( 'the_title', $item->title, $item->ID ) . $args->link_after;
-        $item_output .= $description;
-        $item_output .= $tooltip;
-        $item_output .= '</a>';
-        $item_output .= $widgets_content;
-        $item_output .= $block_html;
-        $item_output .= $args->after;
-
-        if( $depth === 0 && ($design == 'posts-subcategories' || in_array('menu-item-has-children', $item->classes) ) ){
-            $item_output .="\n<div class=\"nav-sublist-dropdown\"><div class=\"container\">\n";
-        }
-
-        $output .= apply_filters( 'walker_nav_menu_start_el', $item_output, $item, $depth, $args );
-    } 
-
-    public function end_el( &$output, $item, $depth = 0, $args = array() ) {
-        
-        $design = get_post_meta($item->ID, '_menu-item-design', true);
-        $widgets_content = '';
-
-        if( $depth == 0 && $design == 'posts-subcategories') {
-            $widgets_content = $this->getPostsSubcategories($item);
-        } 
-
-
-        if( $depth === 0 && ($design == 'posts-subcategories' || in_array('menu-item-has-children', $item->classes) ) ){
-            $output .= $widgets_content;
-            $output .="\n</div></div><!-- .nav-sublist-dropdown -->\n";
-        }
-
-        $output .= "</li>\n";
+        $wrapper.html($newWrapper);
     }
 
-    function et_enque_styles($item_id, $depth) {
-        $post_thumbnail = get_post_thumbnail_id( $item_id, 'thumb' );
-        $post_thumbnail_url = wp_get_attachment_url( $post_thumbnail );
-        $bg_position = get_post_meta($item_id, '_menu-item-background_position', true);
-        $bg_repeat = get_post_meta($item_id, '_menu-item-background_repeat', true );
-        $column_width = get_post_meta($item_id, '_menu-item-column_width', true );
+    // Поиск по полю
+    $('.form_search .search_input').on('input focus', function() {
+        var $input = $(this);
+        var query = $input.val().trim();
+        var $tableWrap = $input.closest('.table_wrap');
+        clearTimeout($input.data('search-timer'));
+        $input.data('search-timer', setTimeout(function() {
+            performSearch($tableWrap, query, 'input');
+            $tableWrap.find('.alphabet-letter').removeClass('active');
+        }, 400));
+    });
 
-        $bg_pos = $bg_rep = $styles = $styles_sublist = '';
-
-        if($bg_position != '') {
-            $bg_pos = "background-position: ".$bg_position.";";
-        }
-
-        if($bg_repeat != '') {
-            $bg_rep = "background-repeat: ".$bg_repeat.";";
-        }
-
-        if(!empty($post_thumbnail_url)) {
-            $styles_sublist .= $bg_pos.$bg_rep." background-image: url(".$post_thumbnail_url.");";
-        }
-
-        if( $depth == 1 && !empty($column_width)) {
-            $styles .= 'width:' . $column_width . '%!important';
-        }
-
-        if( ! empty($styles) ) {
-            echo '<style>.menu-item-'.$item_id.' {'.$styles.'}</style>';
-        }
-
-        if( ! empty($styles_sublist) ) {
-            echo '<style>.menu-item-'.$item_id.' .nav-sublist-dropdown {'.$styles_sublist.'}</style>';
-        }
-
-
-        //add_action('wp_footer', function() use($styles) { die(); echo '<style>'.$styles.'</style>'; });
-
-    }
-
-    function et_get_tooltip_html($item_id) {
-        $output = '';
-        $post_thumbnail = get_post_thumbnail_id( $item_id );
-        $post_thumbnail_url = wp_get_attachment_image_src( $post_thumbnail, 'large' );
-        $output .= '<div class="nav-item-image">';
-            $output .= '<img src="' . $post_thumbnail_url[0] . '" width="' . $post_thumbnail_url[1] . '" height="' . $post_thumbnail_url[2] . '" />';
-        $output .= '</div>';
-        return $output;
-    }
-
-    function getPostsSubcategories( $item ) {
-
-        if( $item->object != 'category' ) return '';
-
-        $cat_id = $item->object_id;
-        $children = get_categories( array('child_of' => $cat_id) );
-
-        $output = '<div class="posts-subcategories">';
-
-            if( ! empty($children) ) {
-                $cat_id = $children[0]->term_id;
-                $output .= '<div class="subcategories-tabs"><ul>';
-
-                foreach ($children as $child) {
-                    $output .= '<li data-cat="' . $child->term_id . '">' . $child->name . '</li>';
-                }
-
-                $output .= '</ul></div><!-- .posts-subcategories -->';
-            }
-
-
-            $output .= '<div class="posts-content">';
-
-                $output .= $this->getPostsByCategory( $cat_id );
-
-            $output .= '</div><!-- .posts-content -->';
-
-
-        $output .= '</div><!-- .posts-subcategories -->';
-
-        return $output;
-    }
-
-    function getPostsByCategory( $cat = false ) {
-
-        if( defined( 'DOING_AJAX' ) && DOING_AJAX  && isset( $_GET['cat'] ) ) {
-            $cat = (int) $_GET['cat'];
-        }
-
-        if( ! $cat ) {
-            return '';
-        }
-
-        $category = get_category( $cat );
-
-        $posts = get_posts( array(
-            'category' => $cat,
-            'posts_per_page' => 3,
-            'post_status' => 'publish',
-            'post_type' => 'post'
-        ) );
-
-        $output = '';
-
-        if( ! empty($posts) ) {
-            foreach ($posts as $post) {
-                $output .= '<div class="post-preview">';
-
-                $output .= '<div class="post-preview-thumbnail" onclick="window.location=\'' . get_the_permalink( $post->ID ) . '\'">';
-
-                    $output .= get_the_post_thumbnail( $post->ID, 'medium' );
-
-                    $output .= '<div class="post-category">' . $category->name . '</div>';
-
-                $output .= '</div>';
-
-                $output .= '<a href="'.get_the_permalink( $post->ID ).'">'. $post->post_title .'</a>';
-
-                $output .= '</div>';
-            }
-        }
-
-        
-        if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
-            echo $output; // All data escaped
-            die();
+    // Поиск/сброс по букве
+    $(document).on('click', '.alphabet-letter', function() {
+        var $letter = $(this);
+        var letter = $letter.data('letter');
+        var $tableWrap = $letter.closest('.table_wrap');
+        var wasActive = $letter.hasClass('active');
+        $tableWrap.find('.search_input').val('');
+        if (wasActive) {
+            $tableWrap.find('.alphabet-letter').removeClass('active');
+            performSearch($tableWrap, '', 'reset');
         } else {
-            return $output;
+            $tableWrap.find('.alphabet-letter').removeClass('active');
+            $letter.addClass('active');
+            performSearch($tableWrap, letter, 'alpha');
         }
-    }
-}
+    });
+
+    // Обновить алфавит при сбросе через "ничего не найдено"
+    $(document).on('click', '.search_results p', function() {
+        var $tableWrap = $(this).closest('.table_wrap');
+        $tableWrap.find('.alphabet-bar').replaceWith(getAlphabetBar($tableWrap));
+    });
+});
 
 
 
-class Et_Navigation_Mobile extends Walker_Nav_Menu
-{
-
-    function start_el ( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
-        global $wp_query;
-        $indent = ( $depth ) ? str_repeat( "\t", $depth ) : '';
-
-        $item_id =  $item->ID;
-
-        $class_names = $value = '';
-
-        $anchor = get_post_meta($item_id, '_menu-item-anchor', true);
-        
-        if(!empty($anchor)) {
-            $item->url = $item->url.'#'.$anchor;
-            if(($key = array_search('current_page_item', $item->classes)) !== false) {
-                unset($item->classes[$key]);
-            }
-            if(($key = array_search('current-menu-item', $item->classes)) !== false) {
-                unset($item->classes[$key]);
-            }
-        }
-        
-        $classes = empty( $item->classes ) ? array() : (array) $item->classes;
-
-
-        $disable_titles = get_post_meta( $item_id, '_menu-item-disable_titles', true );
-
-         if( $depth < 2 ) {
-            if( $disable_titles == 1 ) $classes[] = 'menu-disable_titles';
-        }
-
-
-        $classes[] = 'menu-item-' . $item->ID;
-        $classes[] = 'item-level-' . $depth;
-
-        $class_names = join( ' ', apply_filters( 'nav_menu_css_class', array_filter( $classes ), $item, $args ) );
-        $class_names = ' class="' . esc_attr( $class_names ) . '"';
-
-        $id = apply_filters( 'nav_menu_item_id', 'menu-item-'. $item->ID, $item, $args );
-        $id = strlen( $id ) ? ' id="' . esc_attr( $id ) . '"' : '';
-
-        $output .= $indent . '<li' . $id . $value . $class_names .'>';
-        
-        $attributes  = ! empty( $item->attr_title ) ? ' title="'  . esc_attr( $item->attr_title ) .'"' : '';
-        $attributes .= ! empty( $item->target )     ? ' target="' . esc_attr( $item->target     ) .'"' : '';
-        $attributes .= ! empty( $item->xfn )        ? ' rel="'    . esc_attr( $item->xfn        ) .'"' : '';
-        $attributes .= ! empty( $item->url )        ? ' href="'   . esc_attr( $item->url        ) .'"' : '';
-
-        $tooltip = '';
-
-
-        $link_before = (isset($args->link_before)) ? $args->link_before : '' ;
-        $link_after = (isset($args->link_after)) ? $args->link_after : '' ;
-
-        $before = (isset($args->before)) ? $args->before : '' ;
-        $after = (isset($args->after)) ? $args->after : '' ;
-
-        $item_output = $before;
-        $item_output .= '<a'. $attributes .'>';
-        $item_output .= $link_before . apply_filters( 'the_title', $item->title, $item->ID ) . $link_after;
-        $item_output .= '</a>';
-        $item_output .= $after;
-
-        $output .= apply_filters( 'walker_nav_menu_start_el', $item_output, $item, $depth, $args );
-    } 
-
-        function end_el( &$output, $item, $depth = 0, $args = array() ) {
-        $output .= "</li>\n";
-    }
-
-    function walk( $elements, $max_depth ) {
-        $output = parent::walk( $elements, $max_depth );
-        // Adding custom gtranslate shortcode to the end of the menu
-        $output .= '<li>' . do_shortcode('[gtranslate]') . '</li>';
-        return $output;
-    }
-}
+</script>
